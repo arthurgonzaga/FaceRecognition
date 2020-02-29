@@ -21,12 +21,12 @@ face_recognition = dlib.face_recognition_model_v1("resources/dlib_face_recogniti
 classroomID = '1A' #sys.argv[1]
 
 # File paths according to the classroom ID
-descritorPath = "classrooms/{}/descriptor.npy".format(classroomID)
+descriptorsPath = "classrooms/{}/descriptors.npy".format(classroomID)
 namesPath = "classrooms/{}/names.pickle".format(classroomID)
 
 # Get the students names and descriptors
 names = np.load(namesPath)
-descriptors = np.load(descritorPath)
+descriptors = np.load(descriptorsPath)
 
 # Input the image
 file = 'resources/example.jpg'
