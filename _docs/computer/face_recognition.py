@@ -25,7 +25,7 @@ descriptorsPath = "classrooms/{}/descriptors.npy".format(classroomID)
 namesPath = "classrooms/{}/names.pickle".format(classroomID)
 
 # Get the students names and descriptors
-names = np.load(namesPath)
+names = np.load(namesPath, allow_pickle=True)
 descriptors = np.load(descriptorsPath)
 
 # Input the image

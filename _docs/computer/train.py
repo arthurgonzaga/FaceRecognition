@@ -13,14 +13,11 @@ import cv2
 import numpy as np
 import sys
 
-def start(_id, name):
+def start(classroomID, studentName):
     # Loading files
     face_detector = dlib.get_frontal_face_detector()
     shape_predictor = dlib.shape_predictor("resources/shape_predictor_68_face_landmarks.dat")
     face_recognition = dlib.face_recognition_model_v1("resources/dlib_face_recognition_resnet_model_v1.dat")
-    
-    # Input this value
-    classroomID = _id
     
     # Inicializing variables
     names = {}
@@ -33,14 +30,15 @@ def start(_id, name):
     descriptorsPath = "classrooms/{}/descriptors.npy".format(classroomID)
     namesPath = "classrooms/{}/names.pickle".format(classroomID)
     
-    try:
-        names = np.load(namesPath)
+    # Verifying if the file exists
+    if(os.path.exists(namesPath)):
+        names = np.load(namesPath, allow_pickle=True)
         index = len(names)
         descriptors = np.load(descriptorsPath)
         lastTrain = True
-    except:
+    else:
+        print('No train. Let\'s start!')
         lastTrain = False
-        print('No train, let\'s start')
     
     # Loop through all files in the train folder
     for file in glob.glob(os.path.join(trainFolderPath, "*.jpg")):
@@ -100,7 +98,7 @@ def start(_id, name):
     # Delete the pictures used to train
     tempIndex = 5
     while(tempIndex >= 0):
-        os.remove('{}{}.{}.jpg'.format(trainFolderPath, name, tempIndex))
+        os.remove('{}{}.{}.jpg'.format(trainFolderPath, studentName, tempIndex))
         tempIndex -= 1
     
     # It save the descriptors and the names in these paths
