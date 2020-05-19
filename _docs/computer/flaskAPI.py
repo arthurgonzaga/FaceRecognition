@@ -16,7 +16,7 @@ import dlib
 
 
 # Insert your ipv4
-IPV4 = '192.168.0.104'
+IPV4 = '0.0.0.0'
 
 app = fl(__name__)
 
